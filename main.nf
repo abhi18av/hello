@@ -7,8 +7,17 @@ process sayHello {
   input: 
     val x from cheers
   script:
+   if (x == "Hello") {
+     
+       """
+       exit 1
+       """
+     
+     } else {
+  
     """
     echo '$x world!'
     """
+    }
 }
 
