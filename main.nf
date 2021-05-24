@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-cheers = Channel.from 'Bonjour', 'Ciao', 'Hola'
+cheers = Channel.from 'Bonjour', 'Ciao', 'Hola', 'Hello'
 
 process sayHello {
   echo true
