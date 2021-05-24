@@ -4,8 +4,11 @@ cheers = Channel.from 'Bonjour', 'Ciao', 'Hello', 'Hola'
 
 process sayHello {
   echo true
+  errorStrategy 'terminate'
+  
   input: 
     val x from cheers
+  
   script:
    if (x == "Hello") {
      
