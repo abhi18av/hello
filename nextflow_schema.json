@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/YOUR_PIPELINE/master/nextflow_schema.json",
+    "title": "Nextflow pipeline parameters",
+    "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
+    "type": "object",
+    "definitions": {
+        "input_output": {
+            "title": "Input/output",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "description": "Data input type. Can be h5ad, h5 or multih5ad."
+                },
+                "input": {
+                    "type": "string",
+                    "description": "Comma separated file containing h5 files in S3."
+                },
+                "output": {
+                    "type": "string",
+                    "description": "S3 location to output the integrated data to."
+                },
+                "publishPrefix": {
+                    "type": "string",
+                    "description": "Prefix that will be added to the integrated datasets."
+                },
+                "to": {
+                    "type": "string",
+                    "description": "File formats to export the data. Default always exports to h5ad, additional options include seurat and obs_csv."
+                }
+            },
+            "required": [
+                "from",
+                "input",
+                "output",
+                "publishPrefix"
+            ]
+        },
+        "annotations": {
+            "title": "Annotations",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "meta": {
+                    "type": "string",
+                    "description": "Metadata tsv containing the sample metadata that will be added to the cells."
+                },
+                "ctReference": {
+                    "type": "string",
+                    "description": "Cell type reference for label transfer using SingleR."
+                },
+                "singlercustomref__annotatedH5ADAnnotationField": {
+                    "type": "string",
+                    "description": "Automated celltype annotation field.",
+                    "default": "celltype_singler"
+                },
+                "gmt": {
+                    "type": "string",
+                    "description": "Gene sets to use for genescoring."
+                }
+            }
+        },
+        "filter_settings": {
+            "title": "Filter settings",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "qcmetrics__minUMICount": {
+                    "type": "integer",
+                    "description": "Minimum number of UMI counts for a cell",
+                    "default": "2000"
+                },
+                "qcmetrics__minGeneCount": {
+                    "type": "integer",
+                    "description": "Minimum number of genes for a cell.",
+                    "default": "200"
+                },
+                "qcmetrics__maxFractionMito": {
+                    "type": "number",
+                    "default": 0.2,
+                    "description": "Maximum fraction mitochondrial UMI counts."
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output"
+        },
+        {
+            "$ref": "#/definitions/annotations"
+        },
+        {
+            "$ref": "#/definitions/filter_settings"
+        }
+    ]
+}
